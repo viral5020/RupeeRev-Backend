@@ -69,6 +69,7 @@
     "@types/node": "^24.10.1",
     "@types/node-cron": "^3.0.11",
     "@types/passport": "^1.0.17",
+    "@types/passport-google-oauth20": "^2.0.17",
     "@types/pdf-parse": "^1.1.5",
     "@types/pdfkit": "^0.17.3",
     "@types/uuid": "^11.0.0",
