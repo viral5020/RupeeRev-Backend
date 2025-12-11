@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 export interface IReview extends Document {
-    userId: Schema.Types.ObjectId;
+    userId: string | Schema.Types.ObjectId;
     name: string;
     role?: string;
     rating: number;
