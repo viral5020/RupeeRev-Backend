@@ -1,0 +1,242 @@
+[
+  {
+    "id": "1",
+    "companyName": "Tata Technologies Ltd",
+    "symbol": "TATATECH",
+    "industry": "Information Technology",
+    "openDate": "2025-12-10T00:00:00.000Z",
+    "closeDate": "2025-12-12T00:00:00.000Z",
+    "listingDate": "2025-12-18T00:00:00.000Z",
+    "priceRange": {
+      "min": 475,
+      "max": 500
+    },
+    "lotSize": 30,
+    "issueSize": "₹3,042 Cr",
+    "issueType": "book-built",
+    "status": "upcoming",
+    "overview": "Tata Technologies is a leading global engineering services company providing product development and digital solutions to automotive and aerospace industries.",
+    "strengths": [
+      "Strong parentage with Tata Group backing",
+      "Global presence across 30+ countries",
+      "Long-term relationships with major OEMs",
+      "Expertise in emerging technologies like EV and autonomous vehicles"
+    ],
+    "risks": [
+      "Dependence on automotive industry cycles",
+      "Competition from global engineering service providers",
+      "Currency fluctuation risks due to international operations",
+      "Technology disruption in automotive sector"
+    ],
+    "financialHighlights": [
+      {
+        "year": "FY 2023",
+        "revenue": "₹3,614 Cr",
+        "profit": "₹542 Cr"
+      },
+      {
+        "year": "FY 2022",
+        "revenue": "₹3,120 Cr",
+        "profit": "₹468 Cr"
+      },
+      {
+        "year": "FY 2021",
+        "revenue": "₹2,785 Cr",
+        "profit": "₹398 Cr"
+      }
+    ],
+    "drhpLink": "https://example.com/drhp/tatatech.pdf"
+  },
+  {
+    "id": "2",
+    "companyName": "Ixigo Travel Solutions",
+    "symbol": "IXIGO",
+    "industry": "Travel & Tourism",
+    "openDate": "2025-12-15T00:00:00.000Z",
+    "closeDate": "2025-12-17T00:00:00.000Z",
+    "listingDate": "2025-12-23T00:00:00.000Z",
+    "priceRange": {
+      "min": 88,
+      "max": 93
+    },
+    "lotSize": 161,
+    "issueSize": "₹740 Cr",
+    "issueType": "book-built",
+    "status": "upcoming",
+    "overview": "Ixigo is India's leading AI-powered travel app offering flight, train, and bus booking services with intelligent price prediction and travel planning features.",
+    "strengths": [
+      "AI-driven price prediction technology",
+      "Strong brand recognition in travel sector",
+      "Diversified revenue streams (flights, trains, buses, hotels)",
+      "High user engagement and retention rates"
+    ],
+    "risks": [
+      "Intense competition from MakeMyTrip, Cleartrip, and Yatra",
+      "Seasonal nature of travel business",
+      "Dependence on third-party suppliers",
+      "Regulatory changes in travel industry"
+    ],
+    "financialHighlights": [
+      {
+        "year": "FY 2023",
+        "revenue": "₹585 Cr",
+        "profit": "₹42 Cr"
+      },
+      {
+        "year": "FY 2022",
+        "revenue": "₹412 Cr",
+        "profit": "₹18 Cr"
+      },
+      {
+        "year": "FY 2021",
+        "revenue": "₹158 Cr",
+        "profit": "₹-35 Cr"
+      }
+    ],
+    "drhpLink": "https://example.com/drhp/ixigo.pdf"
+  },
+  {
+    "id": "3",
+    "companyName": "Awfis Space Solutions",
+    "symbol": "AWFIS",
+    "industry": "Real Estate",
+    "openDate": "2025-12-20T00:00:00.000Z",
+    "closeDate": "2025-12-22T00:00:00.000Z",
+    "listingDate": "2025-12-28T00:00:00.000Z",
+    "priceRange": {
+      "min": 355,
+      "max": 375
+    },
+    "lotSize": 40,
+    "issueSize": "₹599 Cr",
+    "issueType": "book-built",
+    "status": "upcoming",
+    "overview": "Awfis is India's largest co-working space provider with 150+ centers across 16 cities, offering flexible workspace solutions to enterprises and startups.",
+    "strengths": [
+      "Largest co-working space network in India",
+      "Strong enterprise client base (70% of revenue)",
+      "Asset-light business model with managed centers",
+      "Technology-enabled workspace management"
+    ],
+    "risks": [
+      "High real estate rental costs",
+      "Competition from WeWork and other co-working players",
+      "Economic slowdown affecting workspace demand",
+      "Work-from-home trend impacting office space requirements"
+    ],
+    "financialHighlights": [
+      {
+        "year": "FY 2023",
+        "revenue": "₹582 Cr",
+        "profit": "₹-48 Cr"
+      },
+      {
+        "year": "FY 2022",
+        "revenue": "₹412 Cr",
+        "profit": "₹-92 Cr"
+      },
+      {
+        "year": "FY 2021",
+        "revenue": "₹285 Cr",
+        "profit": "₹-125 Cr"
+      }
+    ],
+    "drhpLink": "https://example.com/drhp/awfis.pdf"
+  },
+  {
+    "id": "4",
+    "companyName": "Mamaearth Parent Honasa",
+    "symbol": "HONASA",
+    "industry": "Consumer Goods",
+    "openDate": "2025-12-05T00:00:00.000Z",
+    "closeDate": "2025-12-07T00:00:00.000Z",
+    "listingDate": "2025-12-13T00:00:00.000Z",
+    "priceRange": {
+      "min": 308,
+      "max": 324
+    },
+    "lotSize": 46,
+    "issueSize": "₹1,701 Cr",
+    "issueType": "book-built",
+    "status": "open",
+    "overview": "Honasa Consumer is a digital-first beauty and personal care company, parent of popular brands like Mamaearth, The Derma Co, and Aqualogica.",
+    "strengths": [
+      "Strong brand portfolio with Mamaearth as flagship",
+      "Digital-first approach with omnichannel presence",
+      "Focus on natural and toxin-free products",
+      "Rapid revenue growth and market expansion"
+    ],
+    "risks": [
+      "Intense competition in beauty and personal care segment",
+      "High customer acquisition costs",
+      "Dependence on e-commerce platforms",
+      "Profitability challenges despite revenue growth"
+    ],
+    "financialHighlights": [
+      {
+        "year": "FY 2023",
+        "revenue": "₹1,852 Cr",
+        "profit": "₹-157 Cr"
+      },
+      {
+        "year": "FY 2022",
+        "revenue": "₹1,214 Cr",
+        "profit": "₹14 Cr"
+      },
+      {
+        "year": "FY 2021",
+        "revenue": "₹461 Cr",
+        "profit": "₹-14 Cr"
+      }
+    ],
+    "drhpLink": "https://example.com/drhp/honasa.pdf"
+  },
+  {
+    "id": "5",
+    "companyName": "Yatharth Hospital",
+    "symbol": "YATHARTH",
+    "industry": "Healthcare",
+    "openDate": "2025-11-28T00:00:00.000Z",
+    "closeDate": "2025-11-30T00:00:00.000Z",
+    "listingDate": "2025-12-06T00:00:00.000Z",
+    "priceRange": {
+      "min": 290,
+      "max": 305
+    },
+    "lotSize": 49,
+    "issueSize": "₹688 Cr",
+    "issueType": "book-built",
+    "status": "closed",
+    "overview": "Yatharth Hospital operates multi-specialty hospitals in NCR region with focus on affordable healthcare delivery and advanced medical technology.",
+    "strengths": [
+      "Strategic location in high-growth NCR region",
+      "Affordable pricing model attracting large patient base",
+      "Modern infrastructure with latest medical equipment",
+      "Experienced medical team and management"
+    ],
+    "risks": [
+      "Intense competition from established hospital chains",
+      "Regulatory compliance in healthcare sector",
+      "High capital expenditure for expansion",
+      "Dependence on insurance tie-ups for revenue"
+    ],
+    "financialHighlights": [
+      {
+        "year": "FY 2023",
+        "revenue": "₹542 Cr",
+        "profit": "₹98 Cr"
+      },
+      {
+        "year": "FY 2022",
+        "revenue": "₹468 Cr",
+        "profit": "₹82 Cr"
+      },
+      {
+        "year": "FY 2021",
+        "revenue": "₹385 Cr",
+        "profit": "₹65 Cr"
+      }
+    ],
+    "drhpLink": "https://example.com/drhp/yatharth.pdf"
+  }
+]
