@@ -84,7 +84,7 @@ export const getAllReviews = async (): Promise<IReview[]> => {
   try {
     const reviews = await Review.find({ isApproved: true })
       .sort({ createdAt: -1 })
-      .lean(); // <-- FIX
+      .lean<IReview[]>();
     return reviews;
   } catch (error: any) {
     logger.error("Error fetching reviews", error);
@@ -99,7 +99,7 @@ export const getUserReview = async (
   userId: string
 ): Promise<IReview | null> => {
   try {
-    const review = await Review.findOne({ userId }).lean(); // <-- FIX
+    const review = await Review.findOne({ userId }).lean<IReview>(); // <-- FIX
     return review;
   } catch (error: any) {
     logger.error("Error fetching user review", error);
