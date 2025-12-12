@@ -14,7 +14,16 @@ import passport from 'passport';
 const app = express();
 
 app.use(helmet());
-app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:5173'], credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:5173",
+      "https://rupee-rev-frontend-xwbw.vercel.app/",
+    ],
+    credentials: true,
+  })
+);
 app.use(compression());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
