@@ -19,7 +19,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://localhost:5173",
-      "https://rupee-rev-frontend-xwbw.vercel.app/",
+      "https://rupee-rev-frontend-xwbw.vercel.app",
     ],
     credentials: true,
   })
