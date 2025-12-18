@@ -5,6 +5,8 @@ import { cleanTransaction, categorizeTransaction } from '../utils/categorization
 import logger from '../utils/logger';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import Category from '../models/category';
+import mongoose from 'mongoose';
 
 const API_KEY = process.env.VITE_LLM_API_KEY;
 const API_ENDPOINT = process.env.VITE_LLM_API_ENDPOINT ||
@@ -30,10 +32,11 @@ export interface AiInsightsResponse {
  */
 export const getSpendingPatterns = async (userId: string): Promise<SpendingPatterns> => {
     // 1. Fetch raw transactions
+    const queryDate = dayjs().subtract(30, 'day').toDate();
     const rawTransactions = await Transaction.find({
-        user: userId,
-        date: { $gte: dayjs().subtract(90, 'day').toDate() }
-    }).sort({ date: -1 });
+        user: new mongoose.Types.ObjectId(userId),
+        date: { $gte: queryDate }
+    }).sort({ date: -1 }).populate('category');
 
     // 2. Layer 1 & 2: Clean and Categorize
     const processedTransactions = rawTransactions.map(t => {
@@ -76,10 +79,19 @@ export const generateAiInsights = async (userId: string, forceRefresh: boolean =
         }
 
         // 1. Fetch raw transactions
+        const queryDate = dayjs().subtract(30, 'day').toDate();
+        logger.info(`[AI Insights] Fetching txns for user ${userId} since ${queryDate.toISOString()}`);
+
         const rawTransactions = await Transaction.find({
-            user: userId,
-            date: { $gte: dayjs().subtract(90, 'day').toDate() }
-        }).sort({ date: -1 });
+            user: new mongoose.Types.ObjectId(userId),
+            date: { $gte: queryDate }
+        }).sort({ date: -1 }).populate('category');
+
+        logger.info(`[AI Insights] Found ${rawTransactions.length} raw transactions`);
+
+        // Fetch all categories for ID->Name mapping
+        const allCategories = await Category.find({});
+        const categoryMap = new Map(allCategories.map(c => [c._id.toString(), c.name]));
 
         // 2. Layer 1 & 2: Clean and Categorize
         const processedTransactions = rawTransactions.map(t => {
@@ -89,9 +101,16 @@ export const generateAiInsights = async (userId: string, forceRefresh: boolean =
             if (!cleaned.category || cleaned.category === 'Uncategorized' || cleaned.category === 'Others') {
                 cleaned.category = categorizeTransaction(cleaned.description);
             }
-            // Ensure category is a string
-            if (typeof cleaned.category === 'object') {
-                cleaned.category = (cleaned.category as any).name || 'Others';
+
+            // Resolve Category ID to Name
+            // If it's an object (populated), use name. If it's a string (ID), look it up.
+            if (typeof cleaned.category === 'object' && (cleaned.category as any).name) {
+                cleaned.category = (cleaned.category as any).name;
+            } else if (typeof cleaned.category === 'string') {
+                // Check if it's an ID
+                if (categoryMap.has(cleaned.category)) {
+                    cleaned.category = categoryMap.get(cleaned.category) || 'Others';
+                }
             }
 
             return cleaned;

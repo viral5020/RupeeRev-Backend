@@ -69,6 +69,43 @@ export const assignCategory = async (
   let bestRuleCategoryId: string | undefined;
   let bestScore = 0;
 
+  const keywords: Record<string, string[]> = {
+    groceries: ['grocery', 'supermarket', 'mart', 'blinkit', 'zepto', 'bigbasket', 'dmart', 'ratnadeep', 'more retail', 'reliance fresh', 'nature basket', 'store', 'market', 'dairy'],
+    food: ['swiggy', 'zomato', 'restaurant', 'dine', 'burger', 'pizza', 'cafe', 'coffee', 'starbucks', 'mcdonalds', 'dominos', 'kfc', 'subway', 'sweet', 'bakery', 'hotel', 'kitchen', 'eats', 'food', 'pan', 'cold drink', 'colddrink', 'tea', 'beverages', 'nashta', 'bhojnalaya', 'dhaba'],
+    travel: ['ola', 'uber', 'rapido', 'irctc', 'flight', 'airline', 'indigo', 'vistara', 'air india', 'train', 'rail', 'metro', 'bus', 'travel', 'trip', 'booking', 'mmt', 'makemytrip', 'goibibo', 'fuel', 'petrol', 'pump', 'shell', 'hpcl', 'bpcl', 'ioc', 'filling station', 'automotive'],
+    utilities: ['electricity', 'water', 'gas', 'dth', 'mobile', 'recharge', 'bill', 'bescom', 'cesc', 'adani', 'jio', 'airtel', 'vi ', 'bsnl', 'broadband', 'internet', 'wifi'],
+    rent: ['rent', 'landlord', 'housing', 'maintenance'],
+    salary: ['salary', 'payroll', 'credited by', 'bonus', 'stipend'],
+    shopping: ['amazon', 'flipkart', 'myntra', 'ajio', 'meesho', 'nykaa', 'tatacliq', 'decathlon', 'zara', 'h&m', 'trends', 'retail', 'shop', 'fashion', 'clothing'],
+    investment: ['sip', 'mutual fund', 'mf', 'insurance', 'lic', 'zerodha', 'groww', 'upstox', 'angel one', 'ppf', 'epf', 'nps', 'premium'],
+    medical: ['pharmacy', 'medical', 'hospital', 'clinic', 'doctor', 'dr.', 'health', 'lab', 'diagnostics', 'medplus', 'apollo', 'practo', '1mg'],
+    entertainment: ['netflix', 'prime', 'hotstar', 'spotify', 'youtube', 'movie', 'cinema', 'inox', 'pvr', 'bookmyshow', 'game', 'playstation', 'steam'],
+    transfer: ['upi', 'transfer', 'sent to', 'received from', 'upi lite']
+  };
+
+  // CHECK KETWORDS
+  Object.entries(keywords).forEach(([key, list]) => {
+    // Check if pool has a category that matches this key loosely
+    const targetCategory = pool.find(c => {
+      const cName = (c.name || '').toLowerCase();
+      if (cName.includes(key)) return true;
+      if (key === 'medical' && cName.includes('health')) return true;
+      if (key === 'utilities' && cName.includes('bill')) return true;
+      if (key === 'transfer' && (cName.includes('transfer') || cName.includes('money'))) return true;
+      return false;
+    });
+
+    if (targetCategory && list.some(kw => normalizedDesc.includes(kw))) {
+      // Found match
+      const scoreVal = list.some(kw => normalizedDesc === kw) ? 0.9 : 0.7; // Exact match higher
+      if (scoreVal > bestScore) {
+        bestScore = scoreVal;
+        bestRuleCategoryId = targetCategory._id.toString();
+      }
+    }
+  });
+
+  // CHECK NAME MATCH
   pool.forEach((cat: any) => {
     const name = (cat.name || '').toLowerCase();
     if (!name) return;
@@ -77,25 +114,6 @@ export const assignCategory = async (
     if (normalizedDesc.includes(name)) {
       score += 0.6;
     }
-
-    const keywords: Record<string, string[]> = {
-      groceries: ['grocery', 'supermarket', 'mart'],
-      food: ['swiggy', 'zomato', 'restaurant', 'dine', 'burger', 'pizza'],
-      travel: ['ola', 'uber', 'irctc', 'flight', 'hotel'],
-      utilities: ['electricity', 'water bill', 'gas bill', 'dth', 'mobile recharge'],
-      rent: ['rent'],
-      salary: ['salary', 'payroll', 'credited by'],
-      shopping: ['amazon', 'flipkart', 'myntra', 'ajio'],
-      investment: ['sip', 'mutual fund', 'mf', 'insurance', 'lic'],
-    };
-
-    Object.entries(keywords).forEach(([key, list]) => {
-      if (name.includes(key)) {
-        list.forEach((kw) => {
-          if (normalizedDesc.includes(kw)) score += 0.2;
-        });
-      }
-    });
 
     if (score > bestScore) {
       bestScore = score;
@@ -151,5 +169,3 @@ export const assignCategory = async (
     attempts,
   };
 };
-
-

@@ -57,4 +57,8 @@ router.use('/ai', aiInsightsRoutes);
 router.use('/payments', paymentRoutes);
 router.use('/reviews', reviewRoutes);
 
+import reportRoutes from './reportRoutes';
+
+router.use('/reports', reportRoutes);
+
 export default router;

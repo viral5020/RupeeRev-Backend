@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Financial Insights Report</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #1e293b;
+            background-color: #f8fafc;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+            min-height: 100vh;
+        }
+
+        /* Header - Matching AIInsightsPanel Gradient */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-content h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .header-content p {
+            margin: 5px 0 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            opacity: 0.5;
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 30px;
+            background: #fff;
+            border-radius: 8px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        /* Summary Grid */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .summary-card .label {
+            font-size: 12px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .summary-card .value {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 5px;
+            color: #0f172a;
+        }
+
+        .summary-card.income .value {
+            color: #10b981;
+        }
+
+        .summary-card.expense .value {
+            color: #ef4444;
+        }
+
+        .summary-card.savings .value {
+            color: #6366f1;
+        }
+
+        /* Insights List */
+        .insight-card {
+            background: #f0f9ff;
+            border-left: 4px solid #0ea5e9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .insight-card.warning {
+            background: #fef2f2;
+            border-left-color: #ef4444;
+        }
+
+        .insight-card.success {
+            background: #f0fdf4;
+            border-left-color: #22c55e;
+        }
+
+        .insight-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #0f172a;
+        }
+
+        .insight-message {
+            font-size: 14px;
+            color: #475569;
+            margin: 0;
+        }
+
+        /* Category Table */
+        .category-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .category-table th {
+            text-align: left;
+            padding: 10px;
+            background: #f8fafc;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .category-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+        }
+
+        .category-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .amount {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+        }
+
+        /* Spending Twins Section */
+        .spending-twins-container {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+
+        .twins-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .twin-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+        }
+
+        .twin-card.good {
+            border-color: #10b981;
+        }
+
+        .twin-card.current {
+            border-color: #6366f1;
+        }
+
+        .twin-card.bad {
+            border-color: #ef4444;
+        }
+
+        .twin-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .twin-data {
+            font-size: 13px;
+            color: #475569;
+            margin-bottom: 4px;
+        }
+
+        .twin-future {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .twin-future-label {
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .twin-future-val {
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 12px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1>Financial Insights Report</h1>
+                <p>Generated for {{user.name}} • {{period.startDate}} - {{period.endDate}}</p>
+            </div>
+            <div class="logo">RupeeRev</div>
+        </div>
+
+        <!-- Summary -->
+        <div class="summary-grid">
+            <div class="summary-card income">
+                <div class="label">Total Income</div>
+                <div class="value">₹{{summary.income}}</div>
+            </div>
+            <div class="summary-card expense">
+                <div class="label">Total Expenses</div>
+                <div class="value">₹{{summary.expenses}}</div>
+            </div>
+            <div class="summary-card savings">
+                <div class="label">Savings</div>
+                <div class="value">₹{{summary.savings}}</div>
+            </div>
+        </div>
+
+        <!-- Spending Twins -->
+        {{#if spendingTwins}}
+        <div class="section spending-twins-container">
+            <div class="section-title" style="margin-top:0; background:none;">Spending Twins™ Projection</div>
+            <div class="twins-grid">
+                <!-- Good You -->
+                <div class="twin-card good">
+                    <div class="twin-title" style="color: #10b981;">✅ Good You</div>
+                    <div class="twin-data">Exps: ₹{{formatNumber spendingTwins.goodYou.expenses}}</div>
+                    <div class="twin-data">Surplus: ₹{{formatNumber spendingTwins.goodYou.surplus}}</div>
+                    <div class="twin-future">
+                        <div class="twin-future-label">FUTURE NET WORTH</div>
+                        <div class="twin-future-val"><span>1Y:</span> <span>₹{{formatNumber
+                                spendingTwins.goodYou.netWorth1Y}}</span></div>
+                        <div class="twin-future-val"><span>3Y:</span> <span>₹{{formatNumber
+                                spendingTwins.goodYou.netWorth3Y}}</span></div>
+                        <div class="twin-future-val"><span>5Y:</span> <span>₹{{formatNumber
+                                spendingTwins.goodYou.netWorth5Y}}</span></div>
+                    </div>
+                </div>
+
+                <!-- Current You -->
+                <div class="twin-card current">
+                    <div class="twin-title" style="color: #6366f1;">📊 Current You</div>
+                    <div class="twin-data">Exps: ₹{{formatNumber spendingTwins.currentYou.expenses}}</div>
+                    <div class="twin-data">Surplus: ₹{{formatNumber spendingTwins.currentYou.surplus}}</div>
+                    <div class="twin-future">
+                        <div class="twin-future-label">FUTURE NET WORTH</div>
+                        <div class="twin-future-val"><span>1Y:</span> <span>₹{{formatNumber
+                                spendingTwins.currentYou.netWorth1Y}}</span></div>
+                        <div class="twin-future-val"><span>3Y:</span> <span>₹{{formatNumber
+                                spendingTwins.currentYou.netWorth3Y}}</span></div>
+                        <div class="twin-future-val"><span>5Y:</span> <span>₹{{formatNumber
+                                spendingTwins.currentYou.netWorth5Y}}</span></div>
+                    </div>
+                </div>
+
+                <!-- Bad You -->
+                <div class="twin-card bad">
+                    <div class="twin-title" style="color: #ef4444;">⚠️ Bad You</div>
+                    <div class="twin-data">Exps: ₹{{formatNumber spendingTwins.badYou.expenses}}</div>
+                    <div class="twin-data">Surplus: ₹{{formatNumber spendingTwins.badYou.surplus}}</div>
+                    <div class="twin-future">
+                        <div class="twin-future-label">FUTURE NET WORTH</div>
+                        <div class="twin-future-val"><span>1Y:</span> <span>₹{{formatNumber
+                                spendingTwins.badYou.netWorth1Y}}</span></div>
+                        <div class="twin-future-val"><span>3Y:</span> <span>₹{{formatNumber
+                                spendingTwins.badYou.netWorth3Y}}</span></div>
+                        <div class="twin-future-val"><span>5Y:</span> <span>₹{{formatNumber
+                                spendingTwins.badYou.netWorth5Y}}</span></div>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size: 11px; color: #64748b; margin-top: 10px; margin-bottom:0;">
+                * "Good You" spends 10% less. "Bad You" spends 10% more. Projections are linear estimates.
+            </p>
+        </div>
+        {{/if}}
+
+        <!-- AI Insights -->
+        <div class="section">
+            <div class="section-title">AI Insights</div>
+            {{#each insights}}
+            <div class="insight-card {{type}}">
+                <div class="insight-title">{{title}}</div>
+                <p class="insight-message">{{message}}</p>
+            </div>
+            {{/each}}
+        </div>
+
+        <!-- Predicted Expenses -->
+        {{#if predictedExpenses.length}}
+        <div class="section">
+            <div class="section-title">Predicted Upcoming Expenses</div>
+            <table class="category-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Predicted Date</th>
+                        <th class="amount">Amount</th>
+                        <th class="amount">Confidence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each predictedExpenses}}
+                    <tr>
+                        <td>{{category}}</td>
+                        <td>{{predictedDate}}</td>
+                        <td class="amount">₹{{amount}}</td>
+                        <td class="amount">{{confidence}}%</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{/if}}
+
+        <!-- Saving Tips -->
+        {{#if savingTips.length}}
+        <div class="section">
+            <div class="section-title">Smart Saving Tips</div>
+            {{#each savingTips}}
+            <div class="insight-card success" style="border-left-color: #10b981; background: #f0fdf4;">
+                <div class="insight-title">💡 Tip</div>
+                <p class="insight-message">{{this}}</p>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        <!-- Risky Spending -->
+        {{#if riskySpending.length}}
+        <div class="section">
+            <div class="section-title">Risky Spending Alerts</div>
+            {{#each riskySpending}}
+            <div class="insight-card warning" style="border-left-color: #ef4444; background: #fef2f2;">
+                <div class="insight-title">⚠️ Alert</div>
+                <p class="insight-message">{{this}}</p>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        <!-- Consider Reducing -->
+        {{#if considerReducing.length}}
+        <div class="section">
+            <div class="section-title">Consider Reducing</div>
+            {{#each considerReducing}}
+            <div class="insight-card info" style="border-left-color: #6366f1; background: #f0f9ff;">
+                <div class="insight-title">📉 Reduction Opportunity</div>
+                <p class="insight-message">{{this}}</p>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        <div class="footer">
+            <p>Generated by RupeeRev AI • Private & Confidential</p>
+        </div>
+    </div>
+</body>
+
+</html>
